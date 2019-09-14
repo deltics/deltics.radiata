@@ -31,4 +31,18 @@ steps:
     - powershell: |
         duget pack --version $(version)
         if ("$(version)" -like "*alpha*") { duget push --feed alpha } else { duget push }
-  displayName: 'Duget publishing'
+      displayName: 'Duget publishing'
+
+- template: delphi-build.yml@templates
+  parameters:
+    delphiVersion: xe4
+    project: tests\RadiataTests
+    preBuildInline: |
+      duget init
+      duget restore --updateCfg
+    postBuildInline: .bin\RadiataTests -f=.results\Delphi.xe4.xml
+    postBuild:
+    - powershell: |
+        duget pack --version $(version)
+        if ("$(version)" -like "*alpha*") { duget push --feed alpha } else { duget push }
+      displayName: 'Duget publishing'
