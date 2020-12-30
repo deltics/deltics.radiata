@@ -1,48 +1,21 @@
 trigger:
-- develop
+- develop*
+- feature*
 - master
+
+pr:
+- develop*
+- feature*
 
 resources:
   repositories:
-    - repository: templates
-      type: github
-      name: deltics/azure-pipeline-templates
-      endpoint: GitHubTemplates
+    - repository: congress
+      type: git
+      name: congress/templates
 
 pool:
-  name: 'The Den'
+  name: $(AgentPool)
+  demands: Delphi
 
-steps:
-- powershell: |
-    $GitVersion = GitVersion | ConvertFrom-Json
-    Write-Host "##vso[task.setvariable variable=version]$($GitVersion.SemVer)"
-    Write-Host "##vso[build.updatebuildnumber]$($GitVersion.SemVer)"
-  displayName: Determine version for build
-
-- template: delphi-build.yml@templates
-  parameters:
-    delphiVersion: 7
-    project: tests\RadiataTests
-    preBuildInline: |
-      duget init
-      duget restore --updateCfg
-    postBuildInline: .bin\RadiataTests -f=.results\Delphi.7.xml
-    postBuild:
-    - powershell: |
-        duget pack --version $(version)
-        if ("$(version)" -like "*alpha*") { duget push --feed alpha } else { duget push }
-      displayName: 'Duget publishing'
-
-- template: delphi-build.yml@templates
-  parameters:
-    delphiVersion: xe4
-    project: tests\RadiataTests
-    preBuildInline: |
-      duget init
-      duget restore --updateCfg
-    postBuildInline: .bin\RadiataTests -f=.results\Delphi.xe4.xml
-    postBuild:
-    - powershell: |
-        duget pack --version $(version)
-        if ("$(version)" -like "*alpha*") { duget push --feed alpha } else { duget push }
-      displayName: 'Duget publishing'
+jobs:
+- template: build.yml@congress
