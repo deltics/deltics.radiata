@@ -1,0 +1,38 @@
+{
+  "id":"deltics.radiata",
+  "version":"",
+  "summary":"A logging framework for Delphi inspired by SeriLog.",
+  "tags":[
+    "deltics",
+    "delphi",
+    "logging"
+  ],
+  "copyright":"\u00A92019 Jolyon Direnko-Smith",
+  "language":"en",
+  "content":"source",
+  "dependencies":[
+    "deltics.console:1.0.0",
+    "deltics.datetime:1.0.0",
+    "deltics.pointers:1.0.0",
+    "deltics.strings:1.1.0"
+  ],
+  "source":{
+      "files":[
+        "src\\deltics.radiata.inc",
+        "src\\Deltics.Radiata.pas",
+        "src\\Deltics.Radiata.Configuration.pas",
+        "src\\Deltics.Radiata.Interfaces.pas",
+        "src\\Deltics.Radiata.LogEvent.pas",
+        "src\\Deltics.Radiata.LogEventProperties.pas",
+        "src\\Deltics.Radiata.LogEventProperty.pas",
+        "src\\Deltics.Radiata.Logger.pas",
+        "src\\Deltics.Radiata.Logger.Null.pas",
+        "src\\Deltics.Radiata.Logger.Unconfigured.pas",
+        "src\\Deltics.Radiata.MessageTemplate.pas",
+        "src\\Deltics.Radiata.Sinks.pas",
+        "src\\Deltics.Radiata.Sinks.Console.pas",
+        "src\\Deltics.Radiata.Sinks.Debug.pas",
+        "src\\Deltics.Radiata.Utils.pas"
+      ]
+    }
+}
