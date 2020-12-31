@@ -115,13 +115,12 @@
         <DCCReference Include="..\src\Deltics.Radiata.LogEvent.pas"/>
         <DCCReference Include="..\src\Deltics.Radiata.LogEventProperties.pas"/>
         <DCCReference Include="..\src\Deltics.Radiata.LogEventProperty.pas"/>
-        <DCCReference Include="..\src\Deltics.Radiata.Logger.Base.pas"/>
-        <DCCReference Include="..\src\Deltics.Radiata.Logger.Configuration.pas"/>
+        <DCCReference Include="..\src\Deltics.Radiata.Configuration.pas"/>
         <DCCReference Include="..\src\Deltics.Radiata.Logger.Null.pas"/>
         <DCCReference Include="..\src\Deltics.Radiata.Logger.pas"/>
-        <DCCReference Include="..\src\Deltics.Radiata.Logger.Sinks.Console.pas"/>
-        <DCCReference Include="..\src\Deltics.Radiata.Logger.Sinks.Debug.pas"/>
-        <DCCReference Include="..\src\Deltics.Radiata.Logger.Sinks.pas"/>
+        <DCCReference Include="..\src\Deltics.Radiata.Sinks.Console.pas"/>
+        <DCCReference Include="..\src\Deltics.Radiata.Sinks.Debug.pas"/>
+        <DCCReference Include="..\src\Deltics.Radiata.Sinks.pas"/>
         <DCCReference Include="..\src\Deltics.Radiata.Logger.Unconfigured.pas"/>
         <DCCReference Include="..\src\Deltics.Radiata.MessageTemplate.pas"/>
         <DCCReference Include="..\src\Deltics.Radiata.pas"/>
