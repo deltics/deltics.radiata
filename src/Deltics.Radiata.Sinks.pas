@@ -1,7 +1,7 @@
 
 {$i deltics.radiata.inc}
 
-  unit Deltics.Radiata.Logger.Sinks;
+  unit Deltics.Radiata.Sinks;
 
 
 interface
