@@ -62,6 +62,8 @@ interface
     ILoggerSink = interface
     ['{49E80DEC-8BE5-44D9-8F01-CF39317D85CC}']
       procedure Emit(const aEvent: ILogEvent);
+      function get_MinimumLevel: TLogLevel;
+      property MinimumLevel: TLogLevel read get_MinimumLevel;
     end;
 
 
