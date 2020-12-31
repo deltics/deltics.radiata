@@ -17,15 +17,15 @@ interface
     TLogLevels = Deltics.Radiata.Interfaces.TLogLevels;
 
 
-  function Log: ILogger;
+  function Log: ILogger; {$ifdef InlineMethods} inline; {$endif}
   function LoggerConfiguration: ILoggerConfiguration;
 
 
 implementation
 
   uses
-    Deltics.Radiata.Logger,
-    Deltics.Radiata.Logger.Configuration;
+    Deltics.Radiata.Configuration,
+    Deltics.Radiata.Logger;
 
 
   function Log: ILogger;
@@ -36,7 +36,7 @@ implementation
 
   function LoggerConfiguration: ILoggerConfiguration;
   begin
-    result := Deltics.Radiata.Logger.Configuration.LoggerConfiguration;
+    result := Deltics.Radiata.Configuration.LoggerConfiguration;
   end;
 
 
