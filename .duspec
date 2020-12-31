@@ -13,7 +13,8 @@
   "dependencies":[
     "deltics.console:1.0.0",
     "deltics.datetime:1.0.0",
-    "deltics.strings:1.0.0"
+    "deltics.pointers:1.0.0",
+    "deltics.strings:1.1.0"
   ],
   "source":{
       "files":[

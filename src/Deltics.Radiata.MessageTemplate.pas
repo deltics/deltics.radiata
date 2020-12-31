@@ -77,7 +77,7 @@ implementation
 
       prop := props.ItemByName[name];
       if Assigned(prop) then
-        result := ReplaceText(result, '{' + ref + '}', prop.Format(format));
+        result := STR.ReplaceText(result, '{' + ref + '}', prop.Format(format));
     end;
   end;
 

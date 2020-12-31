@@ -9,7 +9,6 @@ interface
   uses
     SysUtils,
     Deltics.InterfacedObjects,
-    Deltics.Strings,
     Deltics.Radiata.Interfaces;
 
 
@@ -17,9 +16,7 @@ interface
     TLogEventProperty = class(TComInterfacedObject, ILogEventProperty)
     private
       fName: String;
-//      fType: TLogEventPropertyType;
       function get_Name: String;
-//      function get_Type: TLogEventPropertyType;
       function Format(const aFormat: String): String;
     protected
       function get_AsString: String; virtual; abstract;
@@ -104,6 +101,9 @@ implementation
 
   uses
     TypInfo,
+    Deltics.Exceptions,
+    Deltics.Pointers,
+    Deltics.Strings,
     Deltics.Strings.Parsers.WIDE,
     Deltics.Strings.Parsers.WIDE.AsInteger;
 
@@ -112,15 +112,17 @@ implementation
 
   class function TLogEventProperty.Create(const aName: String;
                                                 aValue: TVarRec): ILogEventProperty;
+{$ifdef UNICODE}
   var
     s: String;
+{$endif}
   begin
     case aValue.VType of
       vtBoolean,
       vtObject,
       vtClass,
       vtInterface:
-        raise ENotSupportedException.Create('Unable to render const array value as string');
+        raise ENotSupported.Create('Unable to render const array value as string');
 
       vtInteger:
         result := TLogEventIntegerProperty.Create(aName, aValue.VInteger);
@@ -133,10 +135,10 @@ implementation
           result := TLogEventStringProperty.Create(aName, STR.FromWIDE(WIDEChar(aValue.VWideChar)));
 
       vtExtended, vtCurrency:
-        raise ENotSupportedException.Create('Unable to render const array value as string');
+        raise ENotSupported.Create('Unable to render const array value as string');
 
       vtPointer:
-        result := TLogEventStringProperty.Create(aName, IntToHex(IntPtr(aValue.VPointer), SizeOf(Pointer) * 2));
+        result := TLogEventStringProperty.Create(aName, IntToHex(IntPointer(aValue.VPointer), SizeOf(Pointer) * 2));
 
       vtPChar:
         result := TLogEventStringProperty.Create(aName, STR.FromANSI(AnsiString(aValue.VPChar)));
@@ -144,7 +146,7 @@ implementation
       vtPWideChar:
         result := TLogEventStringProperty.Create(aName, STR.FromBuffer(aValue.VPWideChar));
 
-    {$IFNDEF NEXTGEN}
+    {$ifNdef NEXTGEN}
       vtString:
         result := TLogEventStringProperty.Create(aName, UnicodeString(PShortString(aValue.VAnsiString)^));
 
@@ -153,20 +155,29 @@ implementation
 
       vtWideString:
         result := TLogEventStringProperty.Create(aName, STR.FromWIDE(PWIDEChar(aValue.VWideString)));
-    {$ENDIF !NEXTGEN}
+    {$endif !NEXTGEN}
 
       vtVariant:
-        if Assigned(System.VarToUStrProc) then
+      {$ifdef UNICODE}
+       if Assigned(System.VarToUStrProc) then
         begin
           System.VarToUStrProc(s, TVarData(aValue.VVariant^));
           result := TLogEventStringProperty.Create(aName, s);
-        end;
+        end
+        else
+      {$endif}
+        raise ENotSupported.Create('Unsupported type');
 
       vtInt64:
         result := TLogEventIntegerProperty.Create(aName, aValue.VInt64^);
 
+    {$ifdef UNICODE}
       vtUnicodeString:
         result := TLogEventStringProperty.Create(aName, UnicodeString(aValue.VUnicodeString));
+    {$endif}
+
+    else
+      raise ENotSupported.Create('Unsupported type');
     end;
   end;
 
@@ -226,10 +237,10 @@ implementation
   begin
     result := get_AsString;
 
-    if aFormat.Length > 0 then
+    if Length(aFormat) > 0 then
       case aFormat[1] of
-        'l', 'L': result := result.ToLower;
-        'u', 'U': result := result.ToUpper;
+        'l', 'L': result := STR.Lowercase(result);
+        'u', 'U': result := STR.Uppercase(result);
 
         'n', 'N': if fValue then
                     result := '1'
@@ -345,10 +356,10 @@ implementation
   begin
     result := get_AsString;
 
-    if aFormat.Length > 0 then
+    if Length(aFormat) > 0 then
       case aFormat[1] of
-        'l', 'L': result := result.ToLower;
-        'u', 'U': result := result.ToUpper;
+        'l', 'L': result := STR.Lowercase(result);
+        'u', 'U': result := STR.Uppercase(result);
     end;
   end;
 
@@ -391,20 +402,20 @@ implementation
   var
     len: Integer;
     just: Char;
-    &case: Char;
+    caseChar: Char;
   begin
-    len   := -1;
-    just  := #0;
-    &case := #0;
+    len       := -1;
+    just      := #0;
+    caseChar  := #0;
 
-    if aFormat.Length >= 3 then
+    if Length(aFormat) >= 3 then
       just := STR.Uppercase(aFormat[3]);
 
-    if aFormat.Length >= 2 then
+    if Length(aFormat) >= 2 then
       len := STR.Parse.AsInteger(aFormat[2]);
 
-    if aFormat.Length >= 1 then
-      &case := STR.Uppercase(aFormat[1]);
+    if Length(aFormat) >= 1 then
+      caseChar := STR.Uppercase(aFormat[1]);
 
     case len of
       1..7  : result := LEVEL_OF_LENGTH[len][fValue];
@@ -412,9 +423,9 @@ implementation
       result := AsString;
     end;
 
-    case &case of
-      'L': result := result.ToLower;
-      'U': result := result.ToUpper;
+    case caseChar of
+      'L': result := STR.Lowercase(result);
+      'U': result := STR.Uppercase(result);
     end;
 
     case just of

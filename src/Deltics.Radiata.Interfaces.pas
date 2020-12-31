@@ -55,7 +55,7 @@ interface
       procedure InstallLogger;
       procedure InstallNullLogger;
       function CreateLogger: ILogger;
-      function WriteTo: ILoggerSinkConfiguration;
+      function Send: ILoggerSinkConfiguration;
       function MinimumLevel(const aLevel: TLogLevel): ILoggerConfiguration;
     end;
 
@@ -70,13 +70,13 @@ interface
 
     ILoggerSinkConfiguration = interface
     ['{A4B21BE9-20A6-420A-B6DC-8A4BBDF9D645}']
-      function Console: ILoggerConfiguration; overload;
-      function Console(const aTemplate: String): ILoggerConfiguration; overload;
-      function Debug: ILoggerConfiguration; overload;
-      function Debug(const aTemplate: String): ILoggerConfiguration; overload;
-      function EventLog: ILoggerConfiguration;
-      function &File(const aFilename: String): ILoggerConfiguration;
-      function Sink(const aSink: ILoggerSink): ILoggerConfiguration;
+      function ToConsole: ILoggerConfiguration; overload;
+      function ToConsole(const aTemplate: String): ILoggerConfiguration; overload;
+      function ToDebugger: ILoggerConfiguration; overload;
+      function ToDebugger(const aTemplate: String): ILoggerConfiguration; overload;
+      function ToEventLog: ILoggerConfiguration;
+      function ToFile(const aFilename: String): ILoggerConfiguration;
+      function ToSink(const aSink: ILoggerSink): ILoggerConfiguration;
     end;
 
 
@@ -111,7 +111,11 @@ interface
       procedure Add(const aName: String; const aValue: Double); overload;
       procedure Add(const aName: String; const aValue: Integer); overload;
       procedure Add(const aName: String; const aValue: String); overload;
+    {$ifdef EnhancedOverloads}
       procedure Add(const aName: String; const aValue: TDateTime); overload;
+    {$else}
+      procedure AddDatetime(const aName: String; const aValue: TDateTime); overload;
+    {$endif}
       procedure Add(const aProperty: ILogEventProperty); overload;
       property AsJson: String read get_AsJson;
       property AsKV: String read get_AsKV;
@@ -125,10 +129,8 @@ interface
     ['{86E55532-7B9E-462F-B020-7DE32078D066}']
       function get_AsString: String;
       function get_Name: String;
-//      function get_Type: TLogEventPropertyType;
       function Format(const aFormat: String): String;
       property Name: String read get_Name;
-//      property &Type: TLogEventPropertyType read get_Type;
       property AsString: String read get_AsString;
     end;
 

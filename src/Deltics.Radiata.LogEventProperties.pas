@@ -28,7 +28,11 @@ interface
       procedure Add(const aName: String; const aValue: Cardinal); overload;
       procedure Add(const aName: String; const aValue: Integer); overload;
       procedure Add(const aName: String; const aValue: String); overload;
+    {$ifdef EnhancedOverloads}
       procedure Add(const aName: String; const aValue: TDateTime); overload;
+    {$else}
+      procedure AddDatetime(const aName: String; const aValue: TDateTime); overload;
+    {$endif}
       procedure Add(const aProperty: ILogEventProperty); overload;
     public
       constructor Create; overload;
@@ -39,6 +43,7 @@ interface
 implementation
 
   uses
+    Deltics.Exceptions,
     Deltics.Radiata.LogEventProperty,
     Deltics.Radiata.Utils;
 
@@ -75,15 +80,15 @@ implementation
     for i := 0 to Pred(aReferenceList.Count) do
     begin
       STR.Split(aReferencelist[i], ':', name, format);
-      if name.Contains('.') then
+      if STR.Contains(name, '.') then
         CONTINUE;
 
-      name := name.ToLower;
+      name := STR.Lowercase(name);
       if names.Contains(name) then
         CONTINUE;
 
       if argIndex > maxArgIndex then
-        raise EArgumentException.CreateFmt('Insufficient arguments for message (''%s'').', [aMessage]);
+        raise EInvalidOperation.CreateFmt('Insufficient arguments for message (''%s'').', [aMessage]);
 
       names.Add(name);
       Add(name, aArgs[argIndex]);
@@ -120,8 +125,13 @@ implementation
   end;
 
 
+{$ifdef EnhancedOverloads}
   procedure TLogEventProperties.Add(const aName: String;
                                     const aValue: TDateTime);
+{$else}
+  procedure TLogEventProperties.AddDatetime(const aName: String;
+                                            const aValue: TDateTime);
+{$endif}
   begin
     fItems.Add(TLogEventDateTimeProperty.Create(aName, aValue));
   end;

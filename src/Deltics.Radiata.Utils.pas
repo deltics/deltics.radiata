@@ -63,7 +63,7 @@ implementation
       begin
         inPropertyRef := FALSE;
 
-        result.Add(propertyRef.ToLower);
+        result.Add(STR.Lowercase(propertyRef));
       end
       else if (aMessage[i] = '{') then
       begin

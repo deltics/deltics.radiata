@@ -23,15 +23,15 @@ interface
       procedure InstallLogger;
       procedure InstallNullLogger;
       function MinimumLevel(const aLevel: TLogLevel): ILoggerConfiguration;
-      function WriteTo: ILoggerSinkConfiguration;
+      function Send: ILoggerSinkConfiguration;
     private // ILoggerSinkConfiguration
-      function Console: ILoggerConfiguration; overload;
-      function Console(const aTemplate: String): ILoggerConfiguration; overload;
-      function Debug: ILoggerConfiguration; overload;
-      function Debug(const aTemplate: String): ILoggerConfiguration; overload;
-      function EventLog: ILoggerConfiguration;
-      function &File(const aFilename: String): ILoggerConfiguration;
-      function Sink(const aSink: ILoggerSink): ILoggerConfiguration;
+      function ToConsole: ILoggerConfiguration; overload;
+      function ToConsole(const aTemplate: String): ILoggerConfiguration; overload;
+      function ToDebugger: ILoggerConfiguration; overload;
+      function ToDebugger(const aTemplate: String): ILoggerConfiguration; overload;
+      function ToEventLog: ILoggerConfiguration;
+      function ToFile(const aFilename: String): ILoggerConfiguration;
+      function ToSink(const aSink: ILoggerSink): ILoggerConfiguration;
     public
       constructor Create;
     end;
@@ -58,7 +58,7 @@ implementation
 
 { TLoggerConfiguration }
 
-  function TLoggerConfiguration.&File(const aFilename: String): ILoggerConfiguration;
+  function TLoggerConfiguration.ToFile(const aFilename: String): ILoggerConfiguration;
   begin
     raise ENotImplemented.Create('File-based log sinks are not yet supported');
   end;
@@ -71,13 +71,13 @@ implementation
   end;
 
 
-  function TLoggerConfiguration.Console: ILoggerConfiguration;
+  function TLoggerConfiguration.ToConsole: ILoggerConfiguration;
   begin
     AddSink(TConsoleSink.Create);
   end;
 
 
-  function TLoggerConfiguration.Console(const aTemplate: String): ILoggerConfiguration;
+  function TLoggerConfiguration.ToConsole(const aTemplate: String): ILoggerConfiguration;
   begin
     AddSink(TConsoleSink.Create(aTemplate));
   end;
@@ -109,19 +109,19 @@ implementation
   end;
 
 
-  function TLoggerConfiguration.Debug: ILoggerConfiguration;
+  function TLoggerConfiguration.ToDebugger: ILoggerConfiguration;
   begin
     AddSink(TDebugSink.Create);
   end;
 
 
-  function TLoggerConfiguration.Debug(const aTemplate: String): ILoggerConfiguration;
+  function TLoggerConfiguration.ToDebugger(const aTemplate: String): ILoggerConfiguration;
   begin
     AddSink(TDebugSink.Create(aTemplate));
   end;
 
 
-  function TLoggerConfiguration.EventLog: ILoggerConfiguration;
+  function TLoggerConfiguration.ToEventLog: ILoggerConfiguration;
   begin
     raise ENotImplemented.Create('Windows EventLog sink is not yet supported');
   end;
@@ -133,13 +133,13 @@ implementation
   end;
 
 
-  function TLoggerConfiguration.Sink(const aSink: ILoggerSink): ILoggerConfiguration;
+  function TLoggerConfiguration.ToSink(const aSink: ILoggerSink): ILoggerConfiguration;
   begin
     raise ENotImplemented.Create('Custom log sinks are not yet supported');
   end;
 
 
-  function TLoggerConfiguration.WriteTo: ILoggerSinkConfiguration;
+  function TLoggerConfiguration.Send: ILoggerSinkConfiguration;
   begin
     result := self;
   end;

@@ -30,6 +30,7 @@ implementation
   var
     noSinks: TLoggerSinkArray;
   begin
+    SetLength(noSinks, 0);
     inherited Create(lvDebug, noSinks);
   end;
 
