@@ -103,19 +103,42 @@ implementation
     TypInfo,
     Deltics.Exceptions,
     Deltics.Pointers,
-    Deltics.Strings,
-    Deltics.Strings.Parsers.WIDE,
-    Deltics.Strings.Parsers.WIDE.AsInteger;
+    Deltics.Strings
+  {$ifdef InlineMethods},
+    {$ifdef UNICODE}
+      Deltics.Strings.Parsers.WIDE,
+      Deltics.Strings.Parsers.WIDE.AsInteger
+    {$else}
+      Deltics.Strings.Parsers.ANSI,
+      Deltics.Strings.Parsers.ANSI.AsInteger
+    {$endif}
+  {$endif};
 
 
 { TLogEventProperty }
 
   class function TLogEventProperty.Create(const aName: String;
                                                 aValue: TVarRec): ILogEventProperty;
-{$ifdef UNICODE}
-  var
-    s: String;
-{$endif}
+
+    procedure HandleVariant;
+    {$ifdef DELPHIXE2__}
+    var
+      s: String;
+    begin
+      if Assigned(System.VarToUStrProc) then
+      begin
+        System.VarToUStrProc(s, TVarData(aValue.VVariant^));
+        result := TLogEventStringProperty.Create(aName, s);
+      end
+      else
+        raise ENotSupported.Create('Unsupported type');
+    end;
+    {$else}
+    begin
+      raise ENotSupported.Create('Unsupported type');
+    end;
+    {$endif}
+
   begin
     case aValue.VType of
       vtBoolean,
@@ -158,15 +181,7 @@ implementation
     {$endif !NEXTGEN}
 
       vtVariant:
-      {$ifdef DELPHIXE2__}
-       if Assigned(System.VarToUStrProc) then
-        begin
-          System.VarToUStrProc(s, TVarData(aValue.VVariant^));
-          result := TLogEventStringProperty.Create(aName, s);
-        end
-        else
-      {$endif}
-        raise ENotSupported.Create('Unsupported type');
+        HandleVariant;
 
       vtInt64:
         result := TLogEventIntegerProperty.Create(aName, aValue.VInt64^);
