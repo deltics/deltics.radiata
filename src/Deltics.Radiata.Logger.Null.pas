@@ -8,14 +8,14 @@ interface
 
   uses
     Deltics.Radiata.Interfaces,
-    Deltics.Radiata.Logger.Base;
+    Deltics.Radiata.Logger;
 
 
   type
-    TNullLogger = class(TBaseLogger)
+    TNullLogger = class(TLogger)
     protected
-      procedure Emit(const aEvent: ILogEvent); override;
-      procedure Log(const aLevel: TLogLevel; const aMessage: String; aArgs: array of const); override;
+      procedure DoEmit(const aEvent: ILogEvent); override;
+      procedure DoLog(const aLevel: TLogLevel; const aMessage: String; aArgs: array of const); override;
     public
       constructor Create;
     end;
@@ -35,13 +35,13 @@ implementation
   end;
 
 
-  procedure TNullLogger.Emit(const aEvent: ILogEvent);
+  procedure TNullLogger.DoEmit(const aEvent: ILogEvent);
   begin
     // NO-OP
   end;
 
 
-  procedure TNullLogger.Log(const aLevel: TLogLevel; const aMessage: String; aArgs: array of const);
+  procedure TNullLogger.DoLog(const aLevel: TLogLevel; const aMessage: String; aArgs: array of const);
   begin
     // NO-OP
   end;

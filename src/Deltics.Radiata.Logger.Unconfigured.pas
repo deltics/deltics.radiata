@@ -8,15 +8,13 @@ interface
 
   uses
     Deltics.Radiata.Interfaces,
-    Deltics.Radiata.Logger.Base;
+    Deltics.Radiata.Logger;
 
 
   type
-    TUnconfiguredLogger = class(TBaseLogger)
-    private
-      procedure RaiseNotConfigured;
+    TUnconfiguredLogger = class(TLogger)
     protected
-      procedure Emit(const aEvent: ILogEvent); override;
+      procedure DoEmit(const aEvent: ILogEvent); override;
     public
       constructor Create;
     end;
@@ -36,21 +34,13 @@ implementation
   end;
 
 
-  procedure TUnconfiguredLogger.Emit(const aEvent: ILogEvent);
+  procedure TUnconfiguredLogger.DoEmit(const aEvent: ILogEvent);
 
-  begin
-    RaiseNotConfigured;
-  end;
-
-
-  procedure TUnconfiguredLogger.RaiseNotConfigured;
   begin
     raise ERadiataLoggerException.Create('This application uses Deltics Radiata for logging '
                                        + 'but tried to log something before configuring a logger '
                                        + '(or does not configure any logger).');
   end;
-
-
 
 
 
