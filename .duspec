@@ -26,7 +26,7 @@
         "src\\Deltics.Radiata.LogEventProperties.pas",
         "src\\Deltics.Radiata.LogEventProperty.pas",
         "src\\Deltics.Radiata.Logger.pas",
-        "src\\Deltics.Radiata.Logger.Null,pas",
+        "src\\Deltics.Radiata.Logger.Null.pas",
         "src\\Deltics.Radiata.Logger.Unconfigured.pas",
         "src\\Deltics.Radiata.MessageTemplate.pas",
         "src\\Deltics.Radiata.Sinks.pas",
