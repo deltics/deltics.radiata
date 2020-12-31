@@ -36,7 +36,7 @@ interface
     protected
       procedure Emit(const aEvent: ILogEvent); virtual; abstract;
       procedure Log(const aLevel: TLogLevel; const aMessage: String); overload;
-      procedure Log(const aLevel: TLogLevel; const aMessage: String; aArgs: array of const); overload;
+      procedure Log(const aLevel: TLogLevel; const aMessage: String; aArgs: array of const); overload; virtual;
     public
       constructor Create(const aMinimumLevel: TLogLevel; const aSinks: TLoggerSinkArray);
       property MinimumLevel: TLogLevel read fMinimumLevel;
