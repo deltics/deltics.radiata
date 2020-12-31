@@ -42,7 +42,7 @@ interface
 implementation
 
   uses
-    SysUtils,
+    Deltics.Exceptions,
     Deltics.Radiata.Logger,
     Deltics.Radiata.Logger.Sinks.Console,
     Deltics.Radiata.Logger.Sinks.Debug;
@@ -92,7 +92,7 @@ implementation
   procedure TLoggerConfiguration.CreateDefaultLogger;
   begin
     if Deltics.Radiata.Logger.LogConfigured then
-      raise EInvalidOpException.Create('Default Radiata Log has already been created');
+      raise EInvalidOperation.Create('Radiata Log has already been configured');
 
     Deltics.Radiata.Logger.Log            := TLogger.Create(fMinimumLevel, fSinks);
     Deltics.Radiata.Logger.LogConfigured  := TRUE;
