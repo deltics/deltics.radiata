@@ -17,9 +17,9 @@ interface
     TLogEventProperty = class(TComInterfacedObject, ILogEventProperty)
     private
       fName: String;
-      fType: TLogEventPropertyType;
+//      fType: TLogEventPropertyType;
       function get_Name: String;
-      function get_Type: TLogEventPropertyType;
+//      function get_Type: TLogEventPropertyType;
       function Format(const aFormat: String): String;
     protected
       function get_AsString: String; virtual; abstract;
@@ -103,7 +103,9 @@ interface
 implementation
 
   uses
-    TypInfo;
+    TypInfo,
+    Deltics.Strings.Parsers.WIDE,
+    Deltics.Strings.Parsers.WIDE.AsInteger;
 
 
 { TLogEventProperty }
@@ -150,7 +152,7 @@ implementation
         result := TLogEventStringProperty.Create(aName, STR.FromANSI(ANSIString(aValue.VAnsiString^)));
 
       vtWideString:
-        result := TLogEventStringProperty.Create(aName, STR.FromWIDE(WIDE(PWIDEChar(aValue.VWideString))));
+        result := TLogEventStringProperty.Create(aName, STR.FromWIDE(PWIDEChar(aValue.VWideString)));
     {$ENDIF !NEXTGEN}
 
       vtVariant:
@@ -198,11 +200,12 @@ implementation
   end;
 
 
+(*
   function TLogEventProperty.get_Type: TLogEventPropertyType;
   begin
     result := fType;
   end;
-
+*)
 
 
 
