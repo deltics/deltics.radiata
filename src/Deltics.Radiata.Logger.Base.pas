@@ -1,10 +1,13 @@
 
+{$i deltics.radiata.inc}
+
   unit Deltics.Radiata.Logger.Base;
+
 
 interface
 
   uses
-    Deltics.Classes,
+    Deltics.InterfacedObjects,
     Deltics.Radiata.Interfaces;
 
 

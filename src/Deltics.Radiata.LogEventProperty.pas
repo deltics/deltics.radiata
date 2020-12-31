@@ -1,11 +1,14 @@
 
+{$i deltics.radiata.inc}
+
   unit Deltics.Radiata.LogEventProperty;
+
 
 interface
 
   uses
     SysUtils,
-    Deltics.Classes,
+    Deltics.InterfacedObjects,
     Deltics.Strings,
     Deltics.Radiata.Interfaces;
 

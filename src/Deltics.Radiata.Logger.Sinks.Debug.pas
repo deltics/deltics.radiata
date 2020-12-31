@@ -1,19 +1,23 @@
 
+{$i deltics.radiata.inc}
+
   unit Deltics.Radiata.Logger.Sinks.Debug;
+
 
 interface
 
   uses
-    Deltics.Classes,
-    Deltics.Radiata.Interfaces;
+    Deltics.InterfacedObjects,
+    Deltics.Radiata.Interfaces,
+    Deltics.Radiata.Logger.Sinks;
 
 
   type
-    TDebugSink = class(TComInterfacedObject, ILoggerSink)
-    private
-      procedure Emit(const aEvent: ILogEvent);
+    TDebugSink = class(TLoggerSink)
     private
       fMessageTemplate: IMessageTemplate;
+    protected
+      procedure DoEmit(const aEvent: ILogEvent); override;
     public
       constructor Create(const aTemplate: String = DEFAULT_MESSAGE_TEMPLATE);
     end;

@@ -1,12 +1,15 @@
 
+{$i deltics.radiata.inc}
+
   unit Deltics.Radiata.MessageTemplate;
+
 
 interface
 
   uses
     SysUtils,
     StrUtils,
-    Deltics.Classes,
+    Deltics.InterfacedObjects,
     Deltics.Strings,
     Deltics.Radiata.Interfaces;
 
