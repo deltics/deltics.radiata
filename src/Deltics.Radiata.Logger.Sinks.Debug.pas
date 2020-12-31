@@ -40,7 +40,7 @@ implementation
   end;
 
 
-  procedure TDebugSink.Emit(const aEvent: ILogEvent);
+  procedure TDebugSink.DoEmit(const aEvent: ILogEvent);
   var
     msg: String;
   begin

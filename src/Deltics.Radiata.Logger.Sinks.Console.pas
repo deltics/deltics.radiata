@@ -41,7 +41,7 @@ implementation
   end;
 
 
-  procedure TConsoleSink.Emit(const aEvent: ILogEvent);
+  procedure TConsoleSink.DoEmit(const aEvent: ILogEvent);
   const
     COLOR: array[TLogLevel] of String = (
       'silver', // debug
