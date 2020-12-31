@@ -41,7 +41,7 @@ implementation
   uses
     TypInfo,
     Windows,
-    Deltics.DateUtils,
+    Deltics.Datetime,
     Deltics.Radiata.LogEventProperties,
     Deltics.Radiata.LogEventProperty,
     Deltics.Radiata.MessageTemplate,

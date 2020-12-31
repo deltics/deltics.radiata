@@ -30,7 +30,7 @@ interface
 implementation
 
   uses
-    Deltics.DateUtils,
+    Deltics.Datetime,
     Deltics.Radiata.Utils;
 
 
