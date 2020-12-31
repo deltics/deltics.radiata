@@ -158,7 +158,7 @@ implementation
     {$endif !NEXTGEN}
 
       vtVariant:
-      {$ifdef DELPHI2010__}
+      {$ifdef DELPHIXE__}
        if Assigned(System.VarToUStrProc) then
         begin
           System.VarToUStrProc(s, TVarData(aValue.VVariant^));
