@@ -52,7 +52,8 @@ interface
 
     ILoggerConfiguration = interface
     ['{1A70C239-DC79-4CA3-8518-C58CD757FE76}']
-      procedure CreateDefaultLogger;
+      procedure InstallLogger;
+      procedure InstallNullLogger;
       function CreateLogger: ILogger;
       function WriteTo: ILoggerSinkConfiguration;
       function MinimumLevel(const aLevel: TLogLevel): ILoggerConfiguration;
