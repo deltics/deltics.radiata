@@ -85,6 +85,7 @@ implementation
       if argIndex > maxArgIndex then
         raise EArgumentException.CreateFmt('Insufficient arguments for message (''%s'').', [aMessage]);
 
+      names.Add(name);
       Add(name, aArgs[argIndex]);
       Inc(argIndex);
     end;
