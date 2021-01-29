@@ -18,7 +18,7 @@ interface
       fMinimumLevel: TLogLevel;
       fSinks: TLoggerSinkArray;
       procedure AddSink(const aSink: ILoggerSink);
-    private // ILoggerConfiguration
+    protected // ILoggerConfiguration
       function CreateLogger: ILogger;
       procedure CreateDefault;
       procedure CreateNull;
