@@ -20,8 +20,8 @@ interface
       procedure AddSink(const aSink: ILoggerSink);
     private // ILoggerConfiguration
       function CreateLogger: ILogger;
-      procedure InstallLogger;
-      procedure InstallNullLogger;
+      procedure CreateDefault;
+      procedure CreateNull;
       function MinimumLevel(const aLevel: TLogLevel): ILoggerConfiguration;
       function Send: ILoggerSinkConfiguration;
     private // ILoggerSinkConfiguration
@@ -91,13 +91,13 @@ implementation
   end;
 
 
-  procedure TLoggerConfiguration.InstallLogger;
+  procedure TLoggerConfiguration.CreateDefault;
   begin
     Deltics.Radiata.Logger.InstallLogger(TLogger.Create(fMinimumLevel, fSinks));
   end;
 
 
-  procedure TLoggerConfiguration.InstallNullLogger;
+  procedure TLoggerConfiguration.CreateNull;
   begin
     Deltics.Radiata.Logger.InstallLogger(TNullLogger.Create);
   end;
