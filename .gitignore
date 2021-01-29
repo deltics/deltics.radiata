@@ -67,3 +67,5 @@ __recovery/
 
 # Duget dependencies
 __duget/
+
+tests/test.res
