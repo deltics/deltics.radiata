@@ -11,7 +11,8 @@ interface
 
 
   type
-    ILogger = Deltics.Radiata.Interfaces.ILogger;
+    ILogger               = Deltics.Radiata.Interfaces.ILogger;
+    ILoggerConfiguration  = Deltics.Radiata.Interfaces.ILoggerConfiguration;
 
     TLogLevel = Deltics.Radiata.Interfaces.TLogLevel;
     TLogLevels = Deltics.Radiata.Interfaces.TLogLevels;
