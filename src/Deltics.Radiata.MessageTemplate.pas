@@ -10,7 +10,7 @@ interface
     SysUtils,
     StrUtils,
     Deltics.InterfacedObjects,
-    Deltics.Strings,
+    Deltics.StringLists,
     Deltics.Radiata.Interfaces;
 
 
@@ -31,6 +31,7 @@ implementation
 
   uses
     Deltics.Datetime,
+    Deltics.Strings,
     Deltics.Radiata.Utils;
 
 

@@ -8,6 +8,7 @@ interface
 
   uses
     SysUtils,
+    Deltics.StringLists,
     Deltics.Strings;
 
 

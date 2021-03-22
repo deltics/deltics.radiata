@@ -7,7 +7,7 @@
 interface
 
   uses
-    Deltics.Strings,
+    Deltics.StringLists,
     Deltics.Radiata.Interfaces;
 
 
@@ -21,6 +21,10 @@ interface
 
 implementation
 
+  uses
+    Deltics.Strings;
+
+
 { Radiata }
 
   class function Radiata.ParsePropertyNames(const aMessage: String): IStringList;
@@ -32,12 +36,12 @@ implementation
   begin
     refs := ParsePropertyReferences(aMessage);
 
-    result := TComInterfacedStringList.Create;
+    result := TStringList.CreateManaged;
     result.Unique := TRUE;
 
     for i := 0 to Pred(refs.Count) do
     begin
-      STR.Split(refs[i], ':', name, format);
+      Str.Split(refs[i], ':', name, format);
       result.Add(name);
     end;
   end;
@@ -53,7 +57,7 @@ implementation
     inPropertyRef := FALSE;
     propertyRef   := '';
 
-    result := TComInterfacedStringList.Create;
+    result := TStringList.CreateManaged;
 
     i       := 1;
     msgLen  := Length(aMessage);

@@ -102,17 +102,9 @@ implementation
   uses
     TypInfo,
     Deltics.Exceptions,
-    Deltics.Pointers,
-    Deltics.Strings
-  {$ifdef InlineMethods},
-    {$ifdef UNICODE}
-      Deltics.Strings.Parsers.WIDE,
-      Deltics.Strings.Parsers.WIDE.AsInteger
-    {$else}
-      Deltics.Strings.Parsers.ANSI,
-      Deltics.Strings.Parsers.ANSI.AsInteger
-    {$endif}
-  {$endif};
+    Deltics.Memory,
+    Deltics.Strings,
+    Deltics.StringParsers;
 
 
 { TLogEventProperty }
@@ -427,7 +419,7 @@ implementation
       just := STR.Uppercase(aFormat[3]);
 
     if Length(aFormat) >= 2 then
-      len := STR.Parse.AsInteger(aFormat[2]);
+      len := Parse(aFormat[2]).AsInteger;
 
     if Length(aFormat) >= 1 then
       caseChar := STR.Uppercase(aFormat[1]);

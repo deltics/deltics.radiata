@@ -9,6 +9,7 @@ interface
   uses
     SysUtils,
     Deltics.InterfacedObjects,
+    Deltics.StringLists,
     Deltics.Strings,
     Deltics.Radiata.Interfaces;
 

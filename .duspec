@@ -7,14 +7,16 @@
     "delphi",
     "logging"
   ],
-  "copyright":"\u00A92019 Jolyon Direnko-Smith",
+  "copyright":"\u00a92019 Jolyon Direnko-Smith",
   "language":"en",
   "content":"source",
   "dependencies":[
-    "deltics.console:1.0.0",
+    "deltics.console:2.0.0",
     "deltics.datetime:1.0.0",
-    "deltics.pointers:1.0.0",
-    "deltics.strings:1.1.0"
+    "deltics.memory:1.0.0",
+    "deltics.stringlists:2.0.0",
+    "deltics.stringparsers:2.0.0",
+    "deltics.strings:2.0.0"
   ],
   "source":{
       "files":[
