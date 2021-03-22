@@ -9,6 +9,7 @@ interface
   uses
     SysUtils,
     Deltics.InterfacedObjects,
+    Deltics.StringLists,
     Deltics.Strings,
     Deltics.Radiata.Interfaces;
 
@@ -71,7 +72,7 @@ implementation
   begin
     aReferenceList := Radiata.ParsePropertyReferences(aMessage);
 
-    names := TComInterfacedStringList.Create;
+    names := TStringList.CreateManaged;
     names.Sorted := TRUE;
 
     argIndex    := 0;
