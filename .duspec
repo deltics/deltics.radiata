@@ -16,7 +16,7 @@
     "deltics.memory:1.0.0",
     "deltics.stringlists:2.0.0",
     "deltics.stringparsers:2.0.0",
-    "deltics.strings:2.0.0"
+    "deltics.strings:2.1.0"
   ],
   "source":{
       "files":[
