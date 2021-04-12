@@ -18,7 +18,7 @@ interface
     TLogLevels = Deltics.Radiata.Interfaces.TLogLevels;
 
 
-  function Log: ILogger; {$ifdef InlineMethods} inline; {$endif}
+  function Log: ILogger;
   function LoggerConfiguration: ILoggerConfiguration;
 
 
